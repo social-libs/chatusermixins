@@ -1,6 +1,6 @@
 {
   "name": "social_chatusermixinslib",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AllexJS Mixins lib for a User Service",
   "main": "index.js",
   "scripts": {
