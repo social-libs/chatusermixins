@@ -1,0 +1,27 @@
+{
+  "name": "social_chatusermixinslib",
+  "version": "1.0.0",
+  "description": "AllexJS Mixins lib for a User Service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/social-libs/chatusermixins.git"
+  },
+  "keywords": [
+    "ecosystem:AllexJS",
+    "social",
+    "chat",
+    "user",
+    "mixins",
+    "lib"
+  ],
+  "author": "Andrija Petrovic <andrija.hers@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/social-libs/chatusermixins/issues"
+  },
+  "homepage": "https://github.com/social-libs/chatusermixins#readme"
+}
