@@ -7,17 +7,21 @@ function createChatUserUserMixin (execlib) {
   function ChatUserUserMixin () {
   }
   ChatUserUserMixin.prototype.destroy = lib.dummyFunc;
-  ChatUserUserMixin.prototype.sendChatMessage = function (messageobj, defer) {
-    qlib.promise2defer(this.__service.sendChatMessage(messageobj), defer);
+  ChatUserUserMixin.prototype.sendChatMessage = function (togroup, to, msg, defer) {
+    qlib.promise2defer(this.__service.sendChatMessage(togroup, to, msg), defer);
+  };
+  ChatUserUserMixin.prototype.getChatConversations = function (defer) {
+    qlib.promise2defer(this.__service.getChatConversations(), defer);
   };
 
   ChatUserUserMixin.addMethods = function (klass) {
-    lib.inheritMethods(klass, ChatUserUserMixin,
-      'sendChatMessage'
+    lib.inheritMethods(klass, ChatUserUserMixin
+      ,'getChatConversations'
+      ,'sendChatMessage'
     );
   };
 
-  ChatUserUserMixin.visiblefields = ['unreadchat'];
+  ChatUserUserMixin.visiblefields = ['chatnotification'];
 
   return ChatUserUserMixin;
 }

@@ -4,7 +4,8 @@ function createLib (execlib) {
       remote: require('./remotesinks')
     },
     methoddescriptors: {
-      user: require('./methoddescriptors/user')
+      user: require('./methoddescriptors/user'),
+      service: require('./methoddescriptors/serviceuser')
     }
   };
 }
