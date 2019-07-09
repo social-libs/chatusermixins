@@ -13,10 +13,14 @@ function createChatUserUserMixin (execlib) {
   ChatUserUserMixin.prototype.getChatConversations = function (defer) {
     qlib.promise2defer(this.__service.getChatConversations(), defer);
   };
+  ChatUserUserMixin.prototype.getChatMessages = function (conversationid, oldestmessageid, howmany, defer) {
+    qlib.promise2defer(this.__service.getChatMessages(conversationid, oldestmessageid, howmany), defer);
+  };
 
   ChatUserUserMixin.addMethods = function (klass) {
     lib.inheritMethods(klass, ChatUserUserMixin
       ,'getChatConversations'
+      ,'getChatMessages'
       ,'sendChatMessage'
     );
   };

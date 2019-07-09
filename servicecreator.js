@@ -17,15 +17,20 @@ function createServiceMixin (execlib) {
   ChatUserMixin.prototype.getChatConversations = function () {
     return this.__hotel.getChatConversations(this.name);
   };
+  ChatUserMixin.prototype.getChatMessages = function (conversationid, oldestmessageid, howmany) {
+    return this.__hotel.getChatMessages(conversationid, oldestmessageid, howmany);
+  };
   ChatUserMixin.prototype.acknowledgeChatNotification = function (ntfobj) {
     this.state.set('chatnotification', ntfobj);
     return q(ntfobj);
   };
 
   ChatUserMixin.addMethods = function (klass) {
-    lib.inheritMethods(klass, ChatUserMixin,
-      'sendChatMessage',
-      'acknowledgeChatNotification'
+    lib.inheritMethods(klass, ChatUserMixin
+      ,'getChatConversations'
+      ,'getChatMessages'
+      ,'sendChatMessage'
+      ,'acknowledgeChatNotification'
     );
   };
 

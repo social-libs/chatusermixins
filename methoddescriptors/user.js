@@ -9,5 +9,15 @@ module.exports = {
     name: 'Msg',
     type: 'string'
   }],
-  getChatConversations: true
+  getChatConversations: true,
+  getChatMessages: [{
+    name: 'Conversation ID',
+    type: 'string'
+  },{
+    name: 'Oldest Message ID',
+    type: ['number', 'null']
+  },{
+    name: 'How Many',
+    type: ['number', 'null']
+  }]
 };

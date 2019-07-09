@@ -2,53 +2,67 @@
 var lR = ALLEX.execSuite.libRegistry;
 lR.register('social_chatusermixinslib', require('./webindex')(ALLEX));
 
-},{"./webindex":4}],2:[function(require,module,exports){
+},{"./webindex":5}],2:[function(require,module,exports){
+module.exports = {
+  acknowledgeChatNotification: [{
+    title: 'Notification Object',
+    type: 'object',
+    required: ['affected', 'mids', 'lastmessage'],
+    properties: {
+      affected: { type: 'array' },
+      mids: { type: 'array' },
+      lastmessage: {
+        type: 'object',
+        required: ['from', 'message', 'created', 'seen']
+      }
+    }
+  }]
+}
+
+},{}],3:[function(require,module,exports){
 module.exports = {
   sendChatMessage: [{
-    title: 'Message Object',
-    type: 'object',
-    required: ['to', 'message'],
-    properties: {
-      to: {
-        type: 'object',
-        required: ['name'],
-        properties: {
-          name: {type: 'string'},
-          role: {type: 'string'},
-          realm: {type: 'string'}
-        }
-      },
-      from: {
-        type: ['object', 'null'],
-        properties: {
-          name: {type: 'string'},
-          role: {type: 'string'},
-          realm: {type: 'string'}
-        }
-      },
-      message: {type: 'string'}
-    }
+    name: 'To Group',
+    type: 'string'
+  },{
+    name: 'To',
+    type: 'string'
+  },{
+    name: 'Msg',
+    type: 'string'
+  }],
+  getChatConversations: true,
+  getChatMessages: [{
+    name: 'Conversation ID',
+    type: 'string'
+  },{
+    name: 'Oldest Message ID',
+    type: ['number', 'null']
+  },{
+    name: 'How Many',
+    type: ['number', 'null']
   }]
 };
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports = [/*{
   name: [{name: 'DB', identity:{role: 'user', name: 'user'}}, 'Chat'],
   role: 'user'
 }*/];
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 function createLib (execlib) {
   return {
     sinks: {
       remote: require('./remotesinks')
     },
     methoddescriptors: {
-      user: require('./methoddescriptors/user')
+      user: require('./methoddescriptors/user'),
+      service: require('./methoddescriptors/serviceuser')
     }
   };
 }
 
 module.exports = createLib;
 
-},{"./methoddescriptors/user":2,"./remotesinks":3}]},{},[1]);
+},{"./methoddescriptors/serviceuser":2,"./methoddescriptors/user":3,"./remotesinks":4}]},{},[1]);
