@@ -1,11 +1,5 @@
 function createLib (execlib) {
-  return execlib.lib.extend({
-    mixins: {
-      service: require('./servicecreator')(execlib),
-      user: require('./users/usercreator')(execlib),
-      serviceuser: require('./users/serviceusercreator')(execlib)
-    }
-  }, require('./webindex')(execlib));
+  return execlib.loadDependencies('client', ['social:chatbank:lib'], require('./libindex').bind(null, execlib));
 }
 
 module.exports = createLib;
