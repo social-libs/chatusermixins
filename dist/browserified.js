@@ -7,7 +7,7 @@ module.exports = {
   acknowledgeChatNotification: [{
     title: 'Notification Object',
     type: 'object',
-    required: ['affected', 'mids', 'lastmessage'],
+    required: ['affected', 'p2p'],
     properties: {
       affected: { type: 'array' },
       mids: { type: 'array' },
@@ -32,6 +32,10 @@ module.exports = {
     type: 'string'
   }],
   getChatConversations: true,
+  initiateChatConversationsWithUsers: [{
+    name: 'User IDs',
+    type: ['array', 'null']
+  }],
   getChatMessages: [{
     name: 'Conversation ID',
     type: 'string'
@@ -41,6 +45,20 @@ module.exports = {
   },{
     name: 'How Many',
     type: ['number', 'null']
+  }],
+  markMessageRcvd: [{
+    name: 'Conversation ID',
+    type: 'string'
+  },{
+    name: 'Message ID',
+    type: 'number'
+  }],
+  markMessageSeen: [{
+    name: 'Conversation ID',
+    type: 'string'
+  },{
+    name: 'Message ID',
+    type: 'number'
   }]
 };
 

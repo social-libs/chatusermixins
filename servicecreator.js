@@ -1,4 +1,4 @@
-function createServiceMixin (execlib, chatbanklib) {
+function createServiceMixin (execlib, chatutilslib) {
   'use strict';
 
   var lib = execlib.lib,
@@ -17,28 +17,34 @@ function createServiceMixin (execlib, chatbanklib) {
   ChatUserMixin.prototype.getChatConversations = function () {
     return this.__hotel.getChatConversations(this.name);
   };
+  ChatUserMixin.prototype.initiateChatConversationsWithUsers = function (userids) {
+    return this.__hotel.initiateChatConversationsWithUsers(this.name, userids);
+  };
   ChatUserMixin.prototype.getChatMessages = function (conversationid, oldestmessageid, howmany) {
     return this.__hotel.getChatMessages(this.name, conversationid, oldestmessageid, howmany);
   };
+  ChatUserMixin.prototype.markMessageRcvd = function (conversationid, messageid) {
+    return this.__hotel.markMessageRcvd(this.name, conversationid, messageid);
+  };
+  ChatUserMixin.prototype.markMessageSeen = function (conversationid, messageid) {
+    return this.__hotel.markMessageSeen(this.name, conversationid, messageid);
+  };
   ChatUserMixin.prototype.acknowledgeChatNotification = function (ntfobj) {
-    var mymessage = chatbanklib.utils.userandmidder(!ntfobj.p2p, this.name, ntfobj.mids[1], lib.extend({}, ntfobj.lastmessage)),
-      myntfobj = lib.pickExcept(ntfobj, ['lastmessage', 'p2p', 'affected']);
-    myntfobj.lastmessage = mymessage;
-    /*
-    console.log(this.name, 'acknowledgeChatNotification');
-    console.log(ntfobj);
-    console.log('=>');
-    console.log(myntfobj);
-    */
-    this.state.set('chatnotification', myntfobj);
+    var myntfobj = chatutilslib.notification2personal(ntfobj, this.name);
+    if (myntfobj) {
+      this.state.set('chatnotification', myntfobj);
+    }
     return q(myntfobj);
   };
 
   ChatUserMixin.addMethods = function (klass) {
     lib.inheritMethods(klass, ChatUserMixin
       ,'getChatConversations'
+      ,'initiateChatConversationsWithUsers'
       ,'getChatMessages'
       ,'sendChatMessage'
+      ,'markMessageRcvd'
+      ,'markMessageSeen'
       ,'acknowledgeChatNotification'
     );
   };
