@@ -6,35 +6,22 @@ function createServiceMixin (execlib, chatutilslib) {
     execSuite = execlib.execSuite;
 
   function ChatUserMixin () {
-    if (!lib.isFunction(this.__hotel.sendChatMessage)) {
+    if (!this.__hotel.chatConversationNotificationEvents) {
       throw new lib.Error('CHATHOTELMIXINSLIB_NOT_IMPLEMENTED_ON_HOTEL', 'Hotel must implement the social_chathotelmixinslib');
     }
   }
   ChatUserMixin.prototype.destroy = lib.dummyFunc;
-  ChatUserMixin.prototype.sendChatMessage = function (togroup, to, msg) {
-    return this.__hotel.sendChatMessage(this.name, togroup, to, msg);
-  };
-  ChatUserMixin.prototype.getChatConversations = function () {
-    return this.__hotel.getChatConversations(this.name);
-  };
-  ChatUserMixin.prototype.initiateChatConversationsWithUsers = function (userids) {
-    return this.__hotel.initiateChatConversationsWithUsers(this.name, userids);
-  };
-  ChatUserMixin.prototype.getChatMessages = function (conversationid, oldestmessageid, howmany) {
-    return this.__hotel.getChatMessages(this.name, conversationid, oldestmessageid, howmany);
-  };
-  ChatUserMixin.prototype.markMessageRcvd = function (conversationid, messageid) {
-    return this.__hotel.markMessageRcvd(this.name, conversationid, messageid);
-  };
-  ChatUserMixin.prototype.markMessageSeen = function (conversationid, messageid) {
-    return this.__hotel.markMessageSeen(this.name, conversationid, messageid);
-  };
-  ChatUserMixin.prototype.acknowledgeChatNotification = function (ntfobj) {
+  ChatUserMixin.prototype.acknowledgeChatNotification = function (realmname, ntfobj) {
+    try {
     var myntfobj = chatutilslib.notification2personal(ntfobj, this.name);
     if (myntfobj) {
-      this.state.set('chatnotification', myntfobj);
+      this.state.set('chatnotification'+'On'+realmname, myntfobj);
     }
     return q(myntfobj);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   };
 
   ChatUserMixin.addMethods = function (klass) {

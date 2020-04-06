@@ -1,4 +1,4 @@
-function createChatUserUserMixin (execlib) {
+function createChatUserUserMixin (execlib, methoddescriptors, vararglib) {
   'use strict';
 
   var lib = execlib.lib,
@@ -7,6 +7,7 @@ function createChatUserUserMixin (execlib) {
   function ChatUserUserMixin () {
   }
   ChatUserUserMixin.prototype.destroy = lib.dummyFunc;
+  /*
   ChatUserUserMixin.prototype.sendChatMessage = function (togroup, to, msg, defer) {
     qlib.promise2defer(this.__service.sendChatMessage(togroup, to, msg), defer);
   };
@@ -27,19 +28,64 @@ function createChatUserUserMixin (execlib) {
   ChatUserUserMixin.prototype.markMessageSeen = function (conversationid, messageid, defer) {
     qlib.promise2defer(this.__service.markMessageSeen(conversationid, messageid), defer);
   };
+  */
 
-  ChatUserUserMixin.addMethods = function (klass) {
-    lib.inheritMethods(klass, ChatUserUserMixin
-      ,'getChatConversations'
-      ,'initiateChatConversationsWithUsers'
-      ,'getChatMessages'
-      ,'sendChatMessage'
-      ,'markMessageRcvd'
-      ,'markMessageSeen'
-    );
+
+  function addMethodsForRealm (klass, realm) {
+    //TODO use vararglib
+    realm = 'On'+realm;
+    vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'sendChatMessage', 3, 0, null, realm);
+    vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'getChatConversations', 0, 0, null, realm);
+    vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'initiateChatConversationsWithUsers', 1, 0, null, realm);
+    vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'getChatMessages', 3, 0, null, realm);
+    vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'markMessageRcvd', 2, 0, null, realm);
+    vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'markMessageSeen', 2, 0, null, realm);
+  }
+  ChatUserUserMixin.addMethods = function (klass, realms) {
+    if (!realms) {
+      throw new lib.Error('REALM_NEEDED', 'ChatUserUserMixin cannot addMethods without realm(s)');
+    }
+    if (!lib.isArray(realms)) {
+      addMethodsForRealm (klass, realms);
+      return;
+    }
+    realms.forEach(addMethodsForRealm.bind(null, klass));
+    klass = null;
   };
 
-  ChatUserUserMixin.visiblefields = ['chatnotification'];
+  /*
+  function addMethodDescriptors (ret, realm) {
+    //TODO use vararglib
+    return ret;
+  }
+
+  ChatUserUserMixin.addMethodDescriptors = function (realm) {
+    var ret = {}, _ret;
+    if (lib.isArray(realm)) {
+      _ret = ret;
+      realm.forEach(addMethodDescriptors.bind(null, _ret));
+      _ret = null;
+      console.log('addMethodDescriptors', realm, '=>', ret);
+      return ret;
+    }
+    addMethodDescriptors(ret, realm);
+    return ret;
+  };
+  */
+
+  ChatUserUserMixin.addMethodDescriptors = function (realms) {
+    return vararglib.realmizeMethodDescriptors(methoddescriptors.user.user, realms);
+  };
+
+  ChatUserUserMixin.visiblefields = function (realms) {
+    return realms.map(realmprefixerForVisibleFields);
+  };
+  
+  function realmprefixerForVisibleFields (realm) {
+    return 'chatnotification'+'On'+realm;
+  }
+
+  //['chatnotification'];
 
   return ChatUserUserMixin;
 }

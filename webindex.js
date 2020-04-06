@@ -1,11 +1,7 @@
-function createLib (execlib) {
+function createLib (execlib, methoddescriptors, vararglib) {
   return {
-    sinks: {
-      remote: require('./remotesinks')
-    },
     methoddescriptors: {
-      user: require('./methoddescriptors/user'),
-      service: require('./methoddescriptors/serviceuser')
+      user: require('./methoddescriptors/userrealmizercreator')(execlib, methoddescriptors, vararglib)
     }
   };
 }

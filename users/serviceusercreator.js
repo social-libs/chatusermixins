@@ -7,8 +7,8 @@ function createChatServiceUserMixin (execlib) {
   function ChatServiceUserMixin () {
   }
   ChatServiceUserMixin.prototype.destroy = lib.dummyFunc;
-  ChatServiceUserMixin.prototype.acknowledgeChatNotification  = function (ntfobj, defer) {
-    qlib.promise2defer(this.__service.acknowledgeChatNotification(ntfobj), defer);
+  ChatServiceUserMixin.prototype.acknowledgeChatNotification  = function (realmname, ntfobj, defer) {
+    qlib.promise2defer(this.__service.acknowledgeChatNotification(realmname, ntfobj), defer);
   };
 
   ChatServiceUserMixin.addMethods = function (klass) {

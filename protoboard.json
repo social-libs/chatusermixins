@@ -1,5 +1,11 @@
 {
   "browserify": {
     "dist/browserified.js": "browserify.js"
+  },
+  "dependencies": {
+    "js": [
+      "social_chatmethoddescriptorslib",
+      "allex_varargfunctionhandlerlib"
+    ]
   }
 }
