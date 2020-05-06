@@ -32,6 +32,7 @@ function createServiceMixin (execlib, chatutilslib) {
       ,'sendChatMessage'
       ,'markMessageRcvd'
       ,'markMessageSeen'
+      ,'editChatMessage'
       ,'acknowledgeChatNotification'
     );
   };

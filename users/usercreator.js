@@ -34,12 +34,13 @@ function createChatUserUserMixin (execlib, methoddescriptors, vararglib) {
   function addMethodsForRealm (klass, realm) {
     //TODO use vararglib
     realm = 'On'+realm;
-    vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'sendChatMessage', 3, 0, null, realm);
+    vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'sendChatMessage', 4, 0, null, realm);
     vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'getChatConversations', 0, 0, null, realm);
     vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'initiateChatConversationsWithUsers', 1, 0, null, realm);
     vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'getChatMessages', 3, 0, null, realm);
     vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'markMessageRcvd', 2, 0, null, realm);
     vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'markMessageSeen', 2, 0, null, realm);
+    vararglib.userUserPrototype2ServiceWithName2HotelMethod(klass.prototype, 'editChatMessage', 3, 0, null, realm);
   }
   ChatUserUserMixin.addMethods = function (klass, realms) {
     if (!realms) {
