@@ -13,10 +13,17 @@ function createServiceMixin (execlib, chatutilslib) {
   ChatUserMixin.prototype.destroy = lib.dummyFunc;
   ChatUserMixin.prototype.acknowledgeChatNotification = function (realmname, ntfobj) {
     try {
-    var myntfobj = chatutilslib.notification2personal(ntfobj, this.name);
-    if (myntfobj) {
-      this.state.set('chatnotification'+'On'+realmname, myntfobj);
-    }
+      var myntfobj, myrcvdobj;
+      myntfobj = chatutilslib.notification2personal(ntfobj, this.name);
+      if (myntfobj) {
+        this.state.set('chatnotification'+'On'+realmname, myntfobj);
+      }
+      myrcvdobj = chatutilslib.shouldNotificationBeMarkedAsRcvd(this.name, ntfobj);
+      if (myrcvdobj) {
+        //gotta markMessageRcvd
+        //console.log('gotta markMessageRcvd', myrcvdobj);
+        this.__hotel['markMessageRcvd'+'On'+realmname](myrcvdobj.userid, myrcvdobj.conversationid, myrcvdobj.messageid);
+      }
     return q(myntfobj);
     } catch (e) {
       console.error(e);

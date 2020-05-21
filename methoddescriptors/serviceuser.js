@@ -8,7 +8,7 @@ module.exports = {
       mids: { type: 'array' },
       lastmessage: {
         type: 'object',
-        required: ['from', 'message', 'created', 'seen']
+        required: ['from', 'message', 'created']
       }
     }
   }]
