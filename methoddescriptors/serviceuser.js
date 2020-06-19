@@ -6,7 +6,7 @@ module.exports = {
     properties: {
       affected: { type: 'array' },
       mids: { type: 'array' },
-      lastmessage: {
+      lastm: {
         type: 'object',
         required: ['from', 'message', 'created']
       }
