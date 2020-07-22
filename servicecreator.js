@@ -33,6 +33,7 @@ function createServiceMixin (execlib, chatutilslib) {
 
   ChatUserMixin.addMethods = function (klass) {
     lib.inheritMethods(klass, ChatUserMixin
+    /*
       ,'getChatConversations'
       ,'initiateChatConversationsWithUsers'
       ,'getChatMessages'
@@ -40,6 +41,7 @@ function createServiceMixin (execlib, chatutilslib) {
       ,'markMessageRcvd'
       ,'markMessageSeen'
       ,'editChatMessage'
+    */
       ,'acknowledgeChatNotification'
     );
   };
